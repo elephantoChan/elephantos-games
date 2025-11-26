@@ -15,12 +15,12 @@
                     },
                     colors: {
                         md: {
-                            bg: '#0F0D13',       // Very dark purple/black background
-                            surface: '#201A29',  // Surface card color
-                            surface2: '#2F263C', // Lighter surface
-                            primary: '#D0BCFF',  // M3 Purple 80
+                            bg: '#0F0D13',       
+                            surface: '#201A29',  
+                            surface2: '#2F263C', 
+                            primary: '#D0BCFF',  
                             onPrimary: '#381E72',
-                            secondary: '#4FDD77', // Vibrant Green
+                            secondary: '#4FDD77',
                             onSecondary: '#003915',
                             tertiary: '#B6C4FF',
                             error: '#FFB4AB',
@@ -40,7 +40,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Android 16/Material 3 Styling Adjustments */
         .m3-card {
             border-radius: 28px;
             background-color: #201A29;
@@ -48,7 +47,7 @@
         }
 
         .m3-input {
-            border-radius: 9999px; /* Pill shape */
+            border-radius: 9999px;
             background-color: #2F263C;
             border: 2px solid transparent;
             transition: all 0.2s ease;
@@ -71,7 +70,7 @@
             transform: scale(0.96);
         }
 
-        /* Silhouette Logic */
+        
         .silhouette {
             filter: brightness(0) contrast(0);
             transition: filter 0.5s ease-in-out;
@@ -80,7 +79,7 @@
             filter: brightness(1) contrast(1) drop-shadow(0 10px 15px rgba(0,0,0,0.5));
         }
 
-        /* Loading Spinner */
+        
         .loader {
             width: 48px;
             height: 48px;
@@ -97,7 +96,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Input Shake Animation */
+        
         @keyframes shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -121,7 +120,7 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-    <!-- Header -->
+    
     <header class="w-full max-w-md flex justify-between items-center mb-6 px-2">
         <div>
             <h1 class="text-2xl font-bold text-md-primary tracking-tight">Elephanto's Games</h1>
@@ -133,21 +132,16 @@
         </div>
     </header>
 
-    <!-- Main Game Card -->
     <main class="w-full max-w-md m3-card p-6 shadow-2xl relative overflow-hidden flex flex-col items-center min-h-[550px] justify-between">
 
-        <!-- Decorative Background Elements -->
         <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-md-primary/10 to-transparent pointer-events-none"></div>
         <div class="absolute -right-10 top-10 w-32 h-32 bg-md-secondary/10 rounded-full blur-2xl pointer-events-none"></div>
 
-        <!-- Image Area -->
         <div class="relative w-64 h-64 flex items-center justify-center mt-4">
-            <!-- Loading State -->
             <div id="loader" class="absolute inset-0 flex items-center justify-center z-10">
                 <span class="loader"></span>
             </div>
 
-            <!-- The Pokemon Image -->
             <img id="poke-img"
                  src=""
                  alt="Who is that Pokemon?"
@@ -155,20 +149,15 @@
                  draggable="false">
         </div>
 
-        <!-- Info Chips (Generation & Type) - Initially Hidden -->
         <div id="info-container" class="flex flex-wrap gap-2 justify-center mt-2 opacity-0 transition-opacity duration-500 h-0 overflow-hidden">
-             <!-- Injected via JS -->
         </div>
 
-        <!-- Game Interface -->
         <div class="w-full mt-4 flex flex-col gap-4 z-30">
 
-            <!-- Feedback Message -->
             <div id="feedback" class="h-8 text-center font-bold text-lg tracking-wide opacity-0 transition-opacity">
                 &nbsp;
             </div>
 
-            <!-- Input Form -->
             <div id="input-container" class="relative group">
                 <input type="text"
                        id="guess-input"
@@ -176,7 +165,6 @@
                        class="w-full p-4 pl-6 text-lg text-white m3-input placeholder-gray-500 shadow-lg focus:shadow-md-primary/20"
                        autocomplete="off">
 
-                <!-- Submit Arrow -->
                 <button id="submit-btn" class="absolute right-2 top-2 bottom-2 bg-md-primary text-md-onPrimary rounded-full w-12 flex items-center justify-center hover:bg-white transition-colors" onclick="handleGuess()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -184,7 +172,6 @@
                 </button>
             </div>
 
-            <!-- Action Buttons -->
             <div class="grid grid-cols-2 gap-3 mt-2">
                 <button onclick="revealPokemon(false)" class="m3-btn py-3 bg-md-surface2 text-gray-300 hover:bg-white/10 border border-white/5">
                     I don't know
@@ -196,18 +183,15 @@
         </div>
     </main>
 
-    <!-- Credits -->
     <footer class="mt-8 text-center text-gray-600 text-xs">
         Powered by PokeAPI
     </footer>
 
     <script>
-        // Game State
         let currentPokemon = null;
         let streak = 0;
         let isRevealed = false;
 
-        // Type Colors Map
         const TYPE_COLORS = {
             normal: '#A8A878',
             fire: '#F08030',
@@ -228,7 +212,6 @@
             fairy: '#EE99AC'
         };
 
-        // DOM Elements
         const els = {
             img: document.getElementById('poke-img'),
             loader: document.getElementById('loader'),
@@ -241,9 +224,7 @@
             infoContainer: document.getElementById('info-container')
         };
 
-        // Initialize on Load
         window.addEventListener('DOMContentLoaded', () => {
-            // Load streak from local storage
             const savedStreak = localStorage.getItem('pokemonStreak');
             if (savedStreak) {
                 streak = parseInt(savedStreak, 10);
@@ -252,20 +233,17 @@
             initGame();
         });
 
-        // Input Listener for "Enter" key
         els.input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') handleGuess();
         });
 
         async function initGame() {
-            // Reset UI
             isRevealed = false;
             els.input.value = '';
             els.input.disabled = false;
             els.input.focus();
             els.feedback.style.opacity = '0';
 
-            // Reset Info Chips
             els.infoContainer.style.opacity = '0';
             els.infoContainer.style.height = '0';
             els.infoContainer.innerHTML = '';
@@ -275,16 +253,13 @@
             els.img.classList.add('silhouette');
             els.loader.style.display = 'flex';
 
-            // Disable Next button until round over
             els.nextBtn.disabled = true;
             els.nextBtn.classList.add('opacity-50', 'pointer-events-none');
             els.submitBtn.classList.remove('opacity-50', 'pointer-events-none');
 
-            // 1. Generate Random ID (Gen 1-3: 1 to 386 for nostalgia & distinct shapes)
             const randomId = Math.floor(Math.random() * 386) + 1;
 
             try {
-                // 2. Fetch Data (Fetch both Pokemon and Species data in parallel)
                 const [pokemonRes, speciesRes] = await Promise.all([
                     fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`),
                     fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomId}`)
@@ -293,7 +268,6 @@
                 const pokemonData = await pokemonRes.json();
                 const speciesData = await speciesRes.json();
 
-                // 3. Store current Mon data
                 currentPokemon = {
                     name: pokemonData.name,
                     image: pokemonData.sprites.other['official-artwork'].front_default,
@@ -301,7 +275,6 @@
                     generation: speciesData.generation.name
                 };
 
-                // 4. Preload Image
                 const imgLoader = new Image();
                 imgLoader.src = currentPokemon.image;
                 imgLoader.onload = () => {
@@ -342,7 +315,7 @@
 
         function winRound() {
             els.feedback.textContent = `Correct! It's ${formatName(currentPokemon.name)}!`;
-            els.feedback.style.color = '#4FDD77'; // Green
+            els.feedback.style.color = '#4FDD77';
             els.feedback.style.opacity = '1';
             streak++;
             updateStreak();
@@ -362,7 +335,6 @@
             els.nextBtn.classList.remove('opacity-50', 'pointer-events-none');
             els.nextBtn.focus();
 
-            // Populate Info Chips
             renderInfoChips();
 
             if (!isWin) {
@@ -375,22 +347,18 @@
         }
 
         function renderInfoChips() {
-            // Clear existing
             els.infoContainer.innerHTML = '';
 
-            // Create Generation Chip (Default Style)
-            const genName = currentPokemon.generation.split('-')[1].toUpperCase(); // "generation-i" -> "I"
+            const genName = currentPokemon.generation.split('-')[1].toUpperCase(); 
             const genChip = createChip(`GEN ${genName}`, null);
             els.infoContainer.appendChild(genChip);
 
-            // Create Type Chips (Colored Style)
             currentPokemon.types.forEach(type => {
                 const color = TYPE_COLORS[type] || '#777';
                 const typeChip = createChip(type, color);
                 els.infoContainer.appendChild(typeChip);
             });
 
-            // Show container
             els.infoContainer.style.height = 'auto';
             els.infoContainer.style.opacity = '1';
         }
@@ -399,7 +367,6 @@
             const span = document.createElement('span');
 
             if (colorHex) {
-                // Colored Type Chip
                 span.className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm text-white border border-white/20`;
                 span.style.backgroundColor = colorHex;
                 span.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
@@ -414,7 +381,7 @@
 
         function shakeInput() {
             els.inputContainer.classList.add('shake');
-            els.inputContainer.style.borderColor = '#FFB4AB'; // Error color
+            els.inputContainer.style.borderColor = '#FFB4AB'; 
             setTimeout(() => {
                 els.inputContainer.classList.remove('shake');
                 els.inputContainer.style.borderColor = 'transparent';
@@ -423,7 +390,7 @@
 
         function updateStreak() {
             els.streak.textContent = streak;
-            localStorage.setItem('pokemonStreak', streak); // Save to local storage
+            localStorage.setItem('pokemonStreak', streak); 
             els.streak.parentElement.classList.add('scale-110');
             setTimeout(() => els.streak.parentElement.classList.remove('scale-110'), 200);
         }
@@ -437,3 +404,4 @@
     </script>
 </body>
 </html>
+
